@@ -1,20 +1,20 @@
 # Maybe more condensed than it needs to be... but it was fun! Tried two different methods
 
 # Part 1 - using a generator!
-# def mountain_line():
-#     count = -3
-#     for line in open("input.txt"):
-#         count = (count + 3) % (len(line) - 1)
-#         yield line[count]
+def mountain_line():
+    count = -3
+    for line in open("input.txt"):
+        count = (count + 3) % (len(line) - 1)
+        yield line[count]
 
 
-# mountain_gen = mountain_line()
-# trees = sum(char == "#" for char in mountain_gen)
-# print(f"P1 Trees: {trees}")
+mountain_gen = mountain_line()
+trees = sum(char == "#" for char in mountain_gen)
+print(f"P1 Trees: {trees}")
 
 
 # Part 2 - using ... generator comprehension and for loops!
-with open("input copy.txt") as file:
+with open("input.txt") as file:
     mountain = file.read()
 height = mountain.count("\n") + 1
 mountain = mountain.replace("\n", "")
