@@ -1,0 +1,25 @@
+var height = 0, width = 0, mountain = "", px = 0, py = 0, trees = 0, trees_multiple = 1, attempts = [ 1, 1, 3, 1, 5, 1, 7, 1, 1, 2];
+
+// Create mountain string
+var file = file_text_open_read( "input.txt");
+while( !file_text_eof( file)){ mountain += file_text_read_string( file); file_text_readln( file); height += 1;  }
+file_text_close( file);
+width = string_length( mountain) / height;
+
+// See how many trees we hit *tobogganing/falling* off the mountain
+for( var i = 0; i < array_length( attempts); i += 2){
+	while( py < height){	
+		if string_char_at( mountain, (py * width) + (px + 1)) == "#" {
+			trees += 1;
+		}
+		px = ( px + attempts[ i]) mod width;
+		py += attempts[ i + 1];	
+	}
+	px = 0;
+	py = 0;
+	trees_multiple *= trees;
+	trees = 0;
+}
+
+// Tell everyone how bruised we are
+show_debug_message("P2 Trees: " + string( trees_multiple));

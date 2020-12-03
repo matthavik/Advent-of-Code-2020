@@ -1,0 +1,21 @@
+var file = file_text_open_read( "input.txt");
+
+var height = 0, width = 0, mountain = "", data = { px: 0, py: 0, dx: 3, dy: 1, trees: 0 }
+while( !file_text_eof( file)){ 
+	mountain += file_text_read_string( file);
+	file_text_readln( file);
+	height += 1;
+}
+width = string_length( mountain) / height;
+
+while( data.py < height){	
+	if string_char_at( mountain, (data.py * width) + (data.px + 1)) == "#" {
+		data.trees += 1;
+	}
+	data.px = ( data.px + data.dx) mod width;
+	data.py += data.dy;	
+}
+
+show_debug_message("P1 Trees: " + string( data.trees));
+
+file_text_close( file);
